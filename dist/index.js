@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object。defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", { value: true });
 // 百度贴吧自动签到 GitHub Action 脚本
 const apiService_1 = require("./apiService");
 const dataProcessor_1 = require("./dataProcessor");
@@ -249,24 +249,16 @@ const notify_1 = require("./notify");
         console.log(summaryText);
         console.log('==========================================');
         // 5. 发送通知 - 只有在有贴吧签到失败时才发送
-        //const shouldNotify = process.env.ENABLE_NOTIFY === 'true' && failedCount > 0;
-        //if (shouldNotify) {
-        //    console.log('▶️ 步骤5: 发送通知 (由于签到失败而触发)');
-        //    yield (0, notify_1.sendNotification)(summaryText);
-        //}
-        //else if (process.env.ENABLE_NOTIFY === 'true') {
-        //    console.log('ℹ️ 签到全部成功，跳过通知发送');
-        //}
-        //else {
-        //    console.log('ℹ️ 通知功能未启用，跳过通知发送');
-        //}
-    
-        // 5. 发送通知 - 无论签到结果如何都发送
-        if (process.env.ENABLE_NOTIFY === 'true') {
-          console.log('▶️ 步骤5: 发送通知');
-          await sendNotification(summaryText);
-        } else {
-          console.log('ℹ️ 通知功能未启用，跳过通知发送');
+        const shouldNotify = process.env.ENABLE_NOTIFY === 'true' && failedCount > 0;
+        if (shouldNotify) {
+            console.log('▶️ 步骤5: 发送通知 (由于签到失败而触发)');
+            yield (0, notify_1.sendNotification)(summaryText);
+        }
+        else if (process.env.ENABLE_NOTIFY === 'true') {
+            console.log('ℹ️ 签到全部成功，跳过通知发送');
+        }
+        else {
+            console.log('ℹ️ 通知功能未启用，跳过通知发送');
         }
     }
     catch (error) {
