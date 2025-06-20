@@ -282,16 +282,25 @@ const { sendNotification } = require('./notify');
     console.log('==========================================');
     
     // 5. 发送通知 - 只有在有贴吧签到失败时才发送
-    const shouldNotify = process.env.ENABLE_NOTIFY === 'true' && failedCount > 0;
+    //const shouldNotify = process.env.ENABLE_NOTIFY === 'true' && failedCount > 0;
     
-    if (shouldNotify) {
-      console.log('▶️ 步骤5: 发送通知 (由于签到失败而触发)');
+    //if (shouldNotify) {
+    //  console.log('▶️ 步骤5: 发送通知 (由于签到失败而触发)');
+    //  await sendNotification(summaryText);
+    //} else if (process.env.ENABLE_NOTIFY === 'true') {
+    //  console.log('ℹ️ 签到全部成功，跳过通知发送');
+    //} else {
+    //  console.log('ℹ️ 通知功能未启用，跳过通知发送');
+    //}
+    
+    // 5. 发送通知 - 无论签到结果如何都发送
+    if (process.env.ENABLE_NOTIFY === 'true') {
+      console.log('▶️ 步骤5: 发送通知');
       await sendNotification(summaryText);
-    } else if (process.env.ENABLE_NOTIFY === 'true') {
-      console.log('ℹ️ 签到全部成功，跳过通知发送');
     } else {
       console.log('ℹ️ 通知功能未启用，跳过通知发送');
     }
+    
     
   } catch (error) {
     console.error('==========================================');
